@@ -1,15 +1,14 @@
 #!/bin/bash
 
-#### REPLACE AS NEEDED ####
-#### can use namefile ####
-PYTHON_PACKAGES=("pyAudioAnalysis"
-                 "scipy"
-                 "midiutil"
-                 "matplotlib"
-                 "numpy"
-                 "pyaudio")
-
-SYSTEM_PACKAGES=("portaudio19-dev")
+#### can use namefile  or manual as below ####
+# PYTHON_PACKAGES=("pyAudioAnalysis"
+#                  "scipy"
+#                  "midiutil"
+#                  "matplotlib"
+#                  "numpy"
+#                  "pyaudio")
+#
+# SYSTEM_PACKAGES=("portaudio19-dev")
 
 while getopts ":hf" option; do
   case $option in
@@ -54,6 +53,10 @@ fi
 
 echo -e "${BOLD}Checking installed system packages...${NORMAL}\n"
 
+if [ ${#SYSTEM_PACKAGES[@]} == 0 ]
+  then echo "${BOLD}Nothing to do here...${NORMAL}"
+fi
+
 for pkg in "${SYSTEM_PACKAGES[@]}"; do
   dpkg-query -l $pkg 2> /dev/null
   if [ $? -eq 1 ];
@@ -69,6 +72,10 @@ for pkg in "${SYSTEM_PACKAGES[@]}"; do
   fi
 done
 echo -e "\n${BOLD}Checking python 2 packages...\n${NORMAL}"
+
+if [ ${#PYTHON_PACKAGES[@]} == 0 ]
+  then echo "${BOLD}Nothing to do here...${NORMAL}"
+fi
 # check if the python packages are installed
 for pkg in "${PYTHON_PACKAGES[@]}"; do
   if python -c "import $pkg";
