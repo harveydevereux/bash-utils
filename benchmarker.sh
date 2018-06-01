@@ -16,6 +16,8 @@ then
   exit
 fi
 
+declare -a MEMORY_A
+declare -a MEMORY_B
 declare -a TIMES
 # the parameter
 declare -a NTREES
@@ -25,13 +27,17 @@ while [ $COUNT -lt $N ]; do
   COUNT=$(($COUNT+1))
   NTREES[$COUNT]=$((2**$COUNT))
   TIC=$(date +%s.%N)
+  MEMORY_A[$COUNT]=$(free -m | awk 'NR==2{printf "%s \n", $3,$2,$3*100/$2}')
   # put in the command to time
   #./mondrianforest_demo.py --dataset letter --n_mondrians ${NTREES[COUNT]} --budget -1 --normalize_features 1 --optype class
   TOC=$(date +%s.%N)
+  MEMORY_B[$COUNT]=$(free -m | awk 'NR==2{printf "%s \n", $3,$2,$3*100/$2}')
   TIMES[$COUNT]=$(echo $TOC-$TIC | bc)
   echo -e "Trained with ${NTREES[COUNT]} Mondrian trees. Time: ${TIME[COUNT]}"
 done
 
 touch output.txt
-echo ${NTREES[@]} > output.txt
-echo ${TIMES[@]} > output.txt
+echo "NTREES: ${NTREES[@]},
+TIMES ${TIMES[@]},
+MEMORY_A: ${MEMORY_A[@]},
+MEMORY_B: ${MEMORY_B[@]}" > output.txt
