@@ -39,9 +39,9 @@ while [ $COUNT -lt $N ]; do
 done
 
 touch output.txt
-echo "${NTREES[@]},
-${TIMES[@]},
-${MEMORY_A[@]},
+echo "${NTREES[@]}
+${TIMES[@]}
+${MEMORY_A[@]}
 ${MEMORY_B[@]}" > output.txt
 
-echo -e "${BOLD}Output is NTREEs\nTIMES\nMEMORY_A\nMEMORY_B\n${NORMAL}"
+echo -e "${BOLD}Output is\nNTREEs\nTIMES\nMEMORY_A\nMEMORY_B\n${NORMAL}"
