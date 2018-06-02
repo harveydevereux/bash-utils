@@ -1,4 +1,6 @@
 #!/bin/bash
+BOLD=$(tput bold)
+NORMAL=$(tput sgr0)
 
 N=1
 
@@ -33,11 +35,13 @@ while [ $COUNT -lt $N ]; do
   TOC=$(date +%s.%N)
   MEMORY_B[$COUNT]=$(free -m | awk 'NR==2{printf "%s \n", $3,$2,$3*100/$2}')
   TIMES[$COUNT]=$(echo $TOC-$TIC | bc)
-  echo -e "Trained with ${NTREES[COUNT]} Mondrian trees. Time: ${TIME[COUNT]}"
+  echo -e "${BOLD}Trained with ${NTREES[COUNT]} Mondrian trees. Time: ${TIME[COUNT]}${NORMAL}"
 done
 
 touch output.txt
-echo "NTREES: ${NTREES[@]},
-TIMES ${TIMES[@]},
-MEMORY_A: ${MEMORY_A[@]},
-MEMORY_B: ${MEMORY_B[@]}" > output.txt
+echo "${NTREES[@]},
+${TIMES[@]},
+${MEMORY_A[@]},
+${MEMORY_B[@]}" > output.txt
+
+echo -e "${BOLD}Output is NTREEs\nTIMES\nMEMORY_A\nMEMORY_B\n${NORMAL}"
