@@ -35,7 +35,7 @@ while [ $COUNT -lt $N ]; do
   TOC=$(date +%s.%N)
   MEMORY_B[$COUNT]=$(free -m | awk 'NR==2{printf "%s \n", $3,$2,$3*100/$2}')
   TIMES[$COUNT]=$(echo $TOC-$TIC | bc)
-  echo -e "${BOLD}Trained with ${NTREES[COUNT]} Mondrian trees. Time: ${TIME[COUNT]}${NORMAL}"
+  echo -e "${BOLD}Trained with ${NTREES[COUNT]} Mondrian trees. Time: ${TIMES[COUNT]}${NORMAL}"
 done
 
 touch output.txt
