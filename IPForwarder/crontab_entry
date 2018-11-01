@@ -1,0 +1,2 @@
+# for sending the email every day at 9:00 am
+00 09 * * * /PATH TO IPEmailer.sh
